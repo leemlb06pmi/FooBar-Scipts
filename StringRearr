@@ -1,0 +1,42 @@
+def revRot (string, length):
+    if length <= 0:
+        return ('""')
+    elif not string:
+        return ('""')
+    elif length > len(string):
+        return ('""')
+
+    set = splitByLen(string, length)
+    totalNum = len(set)
+
+    for i in range(0,totalNum):
+        if len(set[i]) < length:
+            set.remove(set[i])
+        elif cubable(set[i]):
+            set[i] = ''.join(reversed(set[i]))
+        else:
+            set[i] = backToFront(set[i])
+    return ''.join(set)
+
+def splitByLen(item, maxlen):
+    return [item[ind:ind+maxlen] for ind in range(0, len(item), maxlen)]
+
+def cubable (sub):
+    sum = 0
+    for i in range (0,len(sub)):
+      sum += int(sub[i])**3
+    if sum%2 == 0:
+        return True
+    return False
+
+def backToFront(sub):
+    final = len(sub) - 1
+    li = list(sub)
+    li.insert(final, li.pop(0))
+    return ''.join(li)
+
+string = '123456'
+length = 4
+
+print (revRot(string, length))
+
